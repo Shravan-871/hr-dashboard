@@ -1,15 +1,29 @@
-import ThemeToggle from '../components/ThemeToggle'
-import Sidebar from '../components/Sidebar'
-import '../styles/globals.css'
+import '../styles/tailwind.css'
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        <Sidebar />
+      <head>
+      <script
+        dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="bg-background text-foreground">
         <main className="flex-1 p-6">
           <div className="flex justify-end mb-4">
-            <ThemeToggle />
           </div>
           {children}
         </main>

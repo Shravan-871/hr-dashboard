@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./public/tailwind.css --minify",
+    "dev:css": "tailwindcss -i ./src/styles/tailwind.css -o ./public/tailwind.css --watch"
   },
   "dependencies": {
     "chart.js": "^4.5.0",
@@ -20,9 +22,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/postcss": "^4.1.11",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "tailwindcss": "^4"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
   }
 }

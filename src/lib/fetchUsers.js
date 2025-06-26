@@ -1,16 +1,21 @@
-export async function fetchUsersWithMockData() {
-    const res = await fetch('https://dummyjson.com/users?limit=20')
+import { useEffect } from 'react'
+
+export async function fetchUsersWithMockData(count) {
+    const res = await fetch(`https://randomuser.me/api/?results=${count}`)
     const data = await res.json()
-  
-    return data.users.map(user => ({
-      ...user,
-      department: getRandomDepartment(),
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch users') 
+    }
+    const enhanced = data.results.map((user, i) => ({
+      id: i + 1,
+      fullName: `${user.name.first} ${user.name.last}`,
+      email: user.email,
+      age: user.dob.age,
+      image: user.picture.large,
+      department: ['Engineering', 'Sales', 'HR', 'Marketing'][i % 4],
       rating: Math.floor(Math.random() * 5) + 1,
+      address: `${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state}, ${user.location.country}, ${user.location.postcode}`,
     }))
+    return enhanced
   }
-  
-  function getRandomDepartment() {
-    const departments = ['Engineering', 'Sales', 'HR', 'Marketing', 'Finance']
-    return departments[Math.floor(Math.random() * departments.length)]
-  }
-  

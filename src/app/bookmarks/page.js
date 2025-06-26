@@ -2,13 +2,14 @@
 
 import { useBookmarks } from '../../hooks/useBookmarks'
 import UserCard from '../../components/UserCard'
-import '../../styles/globals.css' // Ensure global styles are imported
+import '../../../public/tailwind.css'  
 
 export default function BookmarksPage() {
   const { bookmarks, removeBookmark } = useBookmarks()
 
   return (
     <div className="p-4">
+            {/* <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> */}
       <h2 className="text-2xl font-bold mb-4">Bookmarked Employees</h2>
       {bookmarks.length === 0 ? (
         <p>No bookmarks yet.</p>
