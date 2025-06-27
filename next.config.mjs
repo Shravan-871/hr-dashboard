@@ -1,7 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns: [new URL('https://randomuser.me/api/portraits/men/**', 'https://randomuser.me/api/portraits/women/**')],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'randomuser.me',
+                pathname: '/api/portraits/men/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'randomuser.me',
+                pathname: '/api/portraits/women/**'
+            },
+        ],
     },
 };
 
