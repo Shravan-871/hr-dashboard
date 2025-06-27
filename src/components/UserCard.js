@@ -27,10 +27,13 @@ const router = useRouter()
   }
 
   return (
-    <button key= {"View"} onClick={() => handleAction('View')} className="group">
       <div className="max-w-sm bg-white/60 shadow-lg rounded-lg my-4 hover:scale-110 transition-transform duration-300 ease-in-out relative overflow-hidden group">
         {/* <div style={{ backgroundImage: `url(${user.image})` }} className="absolute inset-0  bg-cover bg-center bg- opacity-0 group-hover:opacity-20 transition-opacity duration-300 "></div> */}
-        <img className="w-30 h-30 mb-3 mt-4 rounded-full shadow-lg object-cover mx-auto" src={user.image} alt={user.fullName} />
+      <div className='text-center'>
+        <button key={"View"} onClick={() => handleAction('View')} className="text-center">
+          <img className="w-30 h-30 mb-3 mt-4 rounded-full shadow-lg object-cover mx-auto" src={user.image} alt={user.fullName} />
+        </button>
+      </div>
         <RatingStars rating={user.id} />
         <div className="py-4 px-6">
           <h1 className="text-2xl text-gray-800 text-center hover:text-lg font-black group-hover:text-black">{user.fullName}</h1>
@@ -53,7 +56,7 @@ const router = useRouter()
           </div>
         </div>
       </div>
-    </button>
+
 
   )
 }
