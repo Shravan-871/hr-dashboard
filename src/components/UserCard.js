@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import '../../public/tailwind.css'
 import RatingStars from './RatingStars'
-import EmployeePage from '../app/employee/[id]/page.js'
+import Image from 'next/image'
 
 export default function UserCard({ user, onBookmark, onPromote }) {
 const router = useRouter()
@@ -31,7 +31,7 @@ const router = useRouter()
         {/* <div style={{ backgroundImage: `url(${user.image})` }} className="absolute inset-0  bg-cover bg-center bg- opacity-0 group-hover:opacity-20 transition-opacity duration-300 "></div> */}
       <div className='text-center'>
         <button key={"View"} onClick={() => handleAction('View')} className="text-center">
-          <img className="w-30 h-30 mb-3 mt-4 rounded-full shadow-lg object-cover mx-auto" src={user.image} alt={user.fullName} />
+          <Image className="w-30 h-30 mb-3 mt-4 rounded-full shadow-lg object-cover mx-auto" src={user.image} alt={user.fullName} />
         </button>
       </div>
         <RatingStars rating={user.id} />

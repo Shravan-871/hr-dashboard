@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import TabbedUI from '../../../components/TabbedUI'
 import ThemeToggle from '../../../components/ThemeToggle'
+import Image from 'next/image'
 
 export default function EmployeePage() {
   const { id } = useParams()
@@ -48,7 +49,7 @@ export default function EmployeePage() {
         <div className="w-1/2 rounded-2xl shadow-2xl p-8 backdrop-blur-md transition-all duration-700 bg-white/90 dark:bg-gray-900/80">
           <div className="flex flex-col items-center text-center">
             <div className="relative">
-              <img
+              <Image
                 className="w-32 h-32 mb-4 rounded-full shadow-lg object-cover border-4 border-white dark:border-gray-700 transition-all duration-500"
                 src={user.image}
                 alt={user.fullName}
