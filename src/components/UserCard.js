@@ -31,7 +31,7 @@ const router = useRouter()
         {/* <div style={{ backgroundImage: `url(${user.image})` }} className="absolute inset-0  bg-cover bg-center bg- opacity-0 group-hover:opacity-20 transition-opacity duration-300 "></div> */}
       <div className='text-center'>
         <button key={"View"} onClick={() => handleAction('View')} className="text-center">
-          <Image className="w-30 h-30 mb-3 mt-4 rounded-full shadow-lg object-cover mx-auto" src={user.image} alt={user.fullName} />
+          <Image className="mb-3 mt-4 rounded-full shadow-lg object-cover mx-auto" width={300} height={400} src={user.image} alt={user.fullName} />
         </button>
       </div>
         <RatingStars rating={user.id} />
