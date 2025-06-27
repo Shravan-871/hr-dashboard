@@ -1,42 +1,71 @@
 'use client'
+import { useEffect, useState } from 'react'
+import Navbar from '../../components/Navbar'
+import UserCard from '../../components/UserCard'
+import { fetchUsers } from '../../lib/fetchUsers'
 
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+export default function Home() {
+  const [users, setUsers] = useState([])
+  const [filteredUsers, setFilteredUsers] = useState([])
+  const [query, setQuery] = useState('')
 
-export default function LoginPage() {
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleLogin = (e) => {
-    e.preventDefault()
-    if (email && password) {
-      router.push('/')
+  useEffect(() => {
+    const stored = localStorage.getItem('data')
+    if (stored) {
+      const parsed = JSON.parse(stored)
+      setUsers(parsed)
+      setFilteredUsers(parsed)
+    } else {
+      fetchUsers(100).then(fetched => {
+        const withId = fetched.map((user, index) => ({ id: index + 1, ...user }))
+        setUsers(withId)
+        setFilteredUsers(withId)
+        localStorage.removeItem('data')
+        localStorage.setItem('data', JSON.stringify(withId))
+      })
     }
+  }, [])
+
+  const handleSearch = (value) => {
+    setQuery(value)
+    const lower = value.toLowerCase()
+    const filtered = users.filter(user =>
+      user.firstName?.toLowerCase().includes(lower) ||
+      user.lastName?.toLowerCase().includes(lower) ||
+      user.email?.toLowerCase().includes(lower) ||
+      user.department?.toLowerCase().includes(lower)
+    )
+    setFilteredUsers(filtered)
+  }
+
+  // if User wants differ user data, they can click the button to refresh
+  const handleUserRefresh = () => {
+    fetchUsers(100).then(fetched => {
+      const withId = fetched.map((user, index) => ({ id: index + 1, ...user }))
+      setUsers(withId)
+      setFilteredUsers(withId)
+      localStorage.removeItem('data')
+      localStorage.setItem('data', JSON.stringify(withId))
+    })
   }
 
   return (
-    <div className="flex min-h-screen justify-center items-center bg-gray-100 dark:bg-gray-900">
-      <form onSubmit={handleLogin} className="bg-white dark:bg-gray-800 p-6 rounded shadow space-y-4 w-80">
-        <h2 className="text-lg font-bold">Login</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full p-2 border rounded"
-        />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full">Login</button>
-      </form>
+    <div>
+      <Navbar users={users} query={query} onSearchChange={handleSearch} onUserChange={handleUserRefresh} />
+      <div className="flex justify-end">
+
+      </div>
+
+      <div className="p-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {filteredUsers.map(user => (
+          <UserCard
+            key={user.id}
+            user={user}
+            onBookmark={() => console.log('Bookmark', user)}
+            onPromote={() => console.log('Promote', user)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

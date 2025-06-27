@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export async function fetchUsersWithMockData(count) {
+export async function fetchUsers(count) {
     const res = await fetch(`https://randomuser.me/api/?results=${count}`)
     const data = await res.json()
 

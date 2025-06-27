@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function ThemeToggle() {
   // Track theme state just for UI button text
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('dark')
 
   // On mount, sync theme state with document.documentElement
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function ThemeToggle() {
                  hover:bg-gray-300 dark:hover:bg-gray-600"
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? '🌞 Light Mode' : '🌙 Dark Mode'}
+      {theme === 'light' ? '🌞 Light Mode' : '🌙 Dark Mode'}
     </button>
   )
 }

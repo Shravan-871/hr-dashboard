@@ -2,7 +2,7 @@ import '../styles/tailwind.css'
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
       <script
         dangerouslySetInnerHTML={{
@@ -22,9 +22,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-background text-foreground">
-        <main className="flex-1 p-6">
-          <div className="flex justify-end mb-4">
-          </div>
+        <main className="flex-1 p-0">
           {children}
         </main>
       </body>

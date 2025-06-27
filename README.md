@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+hr-management/
+├── app/                     # Next.js App Router
+│   ├── layout.js            # Global layout (e.g., <html>, <body>, ThemeProvider)
+│   ├── globals.css          # Tailwind / Global styles
+│   ├── page.js              # Login Page ("/")
+│   └── home/                # Protected home page ("/home")
+│       └── page.js
+│
+├── components/              # Reusable UI Components
+│   ├── Navbar.js            # Navbar with search, theme toggle, logout
+│   ├── ThemeToggle.js       # Light/Dark toggle
+│   ├── UserCard.js          # Employee card UI
+│   ├── EmployeePage.js      # Employee list with filter & search
+│   ├── BookmarkPage.js      # View/manage bookmarked employees
+│
+├── public/                  # Public assets (e.g., logo)
+│
+├── styles/                  # Optional if you separate custom CSS
+│   └── globals.css
+│
+├── utils/                   # Helper functions (optional)
+│   └── auth.js              # isAuthenticated, logout, etc. (optional)
+│
+├── tailwind.config.js       # Tailwind CSS config
+├── postcss.config.js        # PostCSS config
+├── package.json
+└── README.md
