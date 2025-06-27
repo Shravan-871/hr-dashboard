@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./public/tailwind.css --minify",
-    "dev:css": "tailwindcss -i ./src/styles/tailwind.css -o ./public/tailwind.css --watch"
+    "lint": "next lint"
   },
   "dependencies": {
     "chart.js": "^4.5.0",
