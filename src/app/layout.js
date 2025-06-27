@@ -4,8 +4,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <head>
-      <script
-        dangerouslySetInnerHTML={{
+        <script
+          dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {

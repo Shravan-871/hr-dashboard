@@ -15,6 +15,7 @@ export async function fetchUsers(count) {
       image: user.picture.large,
       department: ['Engineering', 'Sales', 'HR', 'Marketing'][i % 4],
       rating: Math.floor(Math.random() * 5) + 1,
+      phone: user.phone,
       address: `${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state}, ${user.location.country}, ${user.location.postcode}`,
     }))
     return enhanced

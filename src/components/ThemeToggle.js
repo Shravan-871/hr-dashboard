@@ -4,18 +4,28 @@ import { useState, useEffect } from 'react'
 
 export default function ThemeToggle() {
   // Track theme state just for UI button text
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState('light')
 
-  // On mount, sync theme state with document.documentElement
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains('dark')
-    setTheme(isDark ? 'dark' : 'light')
+    // Check localStorage first
+    const storedTheme = localStorage.getItem('theme')
+    if (storedTheme) {
+      setTheme(storedTheme)
+      document.documentElement.classList.toggle('dark', storedTheme === 'dark')
+    } else {
+      // Fallback to system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      setTheme(prefersDark ? 'dark' : 'light')
+      document.documentElement.classList.toggle('dark', prefersDark)
+    }
   }, [])
 
   const toggleTheme = () => {
-    const isDark = document.documentElement.classList.toggle('dark')
-    setTheme(isDark ? 'dark' : 'light')
-    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
+    document.documentElement.classList.toggle('dark', newTheme === 'dark')
+    localStorage.setItem('theme', newTheme)
+    console.log(`Theme changed to: ${newTheme}`) // Debugging log
   }
 
   return (
@@ -30,3 +40,4 @@ export default function ThemeToggle() {
     </button>
   )
 }
+

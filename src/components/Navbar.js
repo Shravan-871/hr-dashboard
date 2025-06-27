@@ -4,7 +4,7 @@ import Link from 'next/link'
 import ThemeToggle from './ThemeToggle'
 import { useRouter } from 'next/navigation'
 
-export default function Navbar({ users, onSearchChange, query, handleUserRefresh }) {
+export default function Navbar({ users, onSearchChange, query, handleUserRefresh, department, onDepartmentChange }) {
   const router = useRouter()
 
   const doLogout = () => {
@@ -20,7 +20,7 @@ export default function Navbar({ users, onSearchChange, query, handleUserRefresh
         <div className="flex justify-between items-center">
           <button
             onClick={() => window.location.href = '/home'}
-            className="text-3xl font-bold text-blue-700 dark:text-blue-300 bg-white/80 dark:bg-gray-800 rounded-lg px-4 py-2 shadow hover:bg-blue-100 hover:text-blue-900 transition"
+            className="text-3xl font-bold text-blue-700 dark:text-blue-300 bg-white/80 dark:bg-gray-900 rounded-lg px-4 py-2 shadow hover:bg-blue-100 hover:text-blue-900 transition"
           >
             💼 HR Dashboard
           </button>
@@ -33,15 +33,29 @@ export default function Navbar({ users, onSearchChange, query, handleUserRefresh
             placeholder="Search by name, email, or department...."
             value={query}
             onChange={e => onSearchChange(e.target.value)}
-            className="w-full px-3 py-2 border rounded text-black bg-white/80 dark:text-white dark:bg-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+            className="w-5/6 px-3 py-2 border rounded text-black bg-white/80 dark:text-white dark:bg-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
           />
+          <select
+            onChange={e => onDepartmentChange(e.target.value)}
+            className="w-1/6 px-3 py-2 border rounded text-black bg-white/80 dark:text-white dark:bg-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+          >
+            <option value="">All Departments</option>
+            {[...new Set(users.map(user => user.department))]  // Unique departments
+              .filter(Boolean)  // Avoid empty departments
+              .map(dept => (
+                <option key={dept} value={dept}>
+                  {dept}
+                </option>
+              ))}
+          </select>
         </div>
 
         {/* Navigation */}
         <nav className="flex flex-wrap justify-end gap-2 md:gap-4 text-sm">
           <Link
-            href="/"
-            className="bg-white/80 dark:bg-gray-800 rounded-lg px-4 py-2 font-semibold text-blue-700 dark:text-blue-300 shadow hover:bg-blue-100 hover:text-blue-900 transition"
+            href="/home" 
+            onClick={() => setTimeout(location.reload.bind(location), 500)}
+            className=" bg-white/80 dark:bg-gray-800 rounded-lg px-4 py-2 font-semibold text-blue-700 dark:text-blue-300 shadow hover:bg-blue-100 hover:text-blue-900 transition"
           >
             Home
           </Link>

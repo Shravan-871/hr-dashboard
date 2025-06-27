@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import UserCard from '../../components/UserCard'
 import { fetchUsers } from '../../lib/fetchUsers'
+import { useBookmarks } from '../../hooks/useBookmarks'
 
 export default function Home() {
   const [users, setUsers] = useState([])
   const [filteredUsers, setFilteredUsers] = useState([])
   const [query, setQuery] = useState('')
+  const [department, setDepartment] = useState('')
+  const { handleAddBookmark } = useBookmarks()
 
   useEffect(() => {
     const stored = localStorage.getItem('data')
@@ -28,13 +31,27 @@ export default function Home() {
 
   const handleSearch = (value) => {
     setQuery(value)
-    const lower = value.toLowerCase()
-    const filtered = users.filter(user =>
-      user.firstName?.toLowerCase().includes(lower) ||
-      user.lastName?.toLowerCase().includes(lower) ||
-      user.email?.toLowerCase().includes(lower) ||
-      user.department?.toLowerCase().includes(lower)
-    )
+    filterUsers(value, department)
+  }
+
+  const handleDepartmentChange = (value) => {
+    setDepartment(value)
+    filterUsers(query, value)
+  }
+
+  // Search and filter by department
+  const filterUsers = (searchQuery, dept) => {
+    const lowerQuery = searchQuery.toLowerCase()
+    const filtered = users.filter(user => {
+      const matchesSearch =
+        user.firstName?.toLowerCase().includes(lowerQuery) ||
+        user.lastName?.toLowerCase().includes(lowerQuery) ||
+        user.email?.toLowerCase().includes(lowerQuery) ||
+        user.department?.toLowerCase().includes(lowerQuery)
+      const matchesDepartment = dept ? user.department === dept : true
+
+      return matchesSearch && matchesDepartment
+    })
     setFilteredUsers(filtered)
   }
 
@@ -51,7 +68,14 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar users={users} query={query} onSearchChange={handleSearch} onUserChange={handleUserRefresh} />
+      <Navbar
+        users={users}
+        query={query}
+        onSearchChange={handleSearch}
+        department={department}
+        onDepartmentChange={handleDepartmentChange}
+        handleUserRefresh={handleUserRefresh}
+      />
       <div className="flex justify-end">
 
       </div>
@@ -61,7 +85,7 @@ export default function Home() {
           <UserCard
             key={user.id}
             user={user}
-            onBookmark={() => console.log('Bookmark', user)}
+            onBookmark={() => handleAddBookmark(user)}
             onPromote={() => console.log('Promote', user)}
           />
         ))}
