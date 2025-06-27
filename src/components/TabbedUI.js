@@ -44,7 +44,7 @@ export default function TabbedUI({ userId }) {
           <ul className="list-disc pl-5 space-y-2">
             {mockFeedback.slice(0, 3).map((item, idx) => (
               <li key={idx}>
-                <p><strong>{item.reviewer}:</strong> "{item.comment}"</p>
+                <p><strong>{item.reviewer}:</strong> &quot;{item.comment}&quot;</p>
                 <p>Rating: {item.rating}/5</p>
               </li>
             ))}
