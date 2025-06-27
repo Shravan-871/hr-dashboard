@@ -1,19 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'randomuser.me',
-                pathname: '/api/portraits/men/**'
-            },
-            {
-                protocol: 'https',
-                hostname: 'randomuser.me',
-                pathname: '/api/portraits/women/**'
-            },
-        ],
-    },
+            "loader": 'default', // Prevents Vercel's optimization
+            "unoptimized": true, 
+        }
 };
 
 export default nextConfig;
